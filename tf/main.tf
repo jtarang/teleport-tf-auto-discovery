@@ -107,15 +107,15 @@ module "rds" {
 }
 
 
-# module "eks" {
-#   source                 = "./modules/aws/eks"
-#   eks_cluster_name       = "${var.user_prefix}-eks"
-#   eks_cluster_version    = var.eks_cluster_version
-#   eks_subnet_ids         = flatten([module.vpc.public_subnet_ids, module.vpc.private_subnet_ids]) # Flattening the list of subnet IDs
-#   eks_security_group_ids = [module.nsg.nsg_id]
-#   eks_node_instance_type = var.eks_node_instance_type
-#   eks_node_count         = var.eks_node_desired_capacity
-#   eks_node_min_size      = var.eks_node_min_capacity
-#   eks_node_max_size      = var.eks_node_max_capacity
-#   tags                   = var.tags
-# }
+module "eks" {
+  source                 = "./modules/aws/eks"
+  eks_cluster_name       = "${var.user_prefix}-eks"
+  eks_cluster_version    = var.eks_cluster_version
+  eks_subnet_ids         = flatten([module.vpc.public_subnet_ids, module.vpc.private_subnet_ids]) # Flattening the list of subnet IDs
+  eks_security_group_ids = [module.nsg.nsg_id]
+  eks_node_instance_type = var.eks_node_instance_type
+  eks_node_count         = var.eks_node_desired_capacity
+  eks_node_min_size      = var.eks_node_min_capacity
+  eks_node_max_size      = var.eks_node_max_capacity
+  tags                   = var.tags
+}

@@ -26,8 +26,12 @@ resource "aws_db_instance" "demo_rds" {
   multi_az          = var.rds_db_multi_az
   skip_final_snapshot = var.rds_db_skip_final_snapshot
   iam_database_authentication_enabled = true
+    
+  tags = merge(var.rds_db_tags, {
+    "teleport.dev/db-admin" = var.rds_db_teleport_admin_user
+    "teleport.dev/db-admin-default-database" = var.rds_db_name
+  })
   
-  tags = var.rds_db_tags
 
   # Optional parameters
   storage_encrypted = var.rds_db_storage_encrypted
@@ -49,7 +53,6 @@ locals {
   master_rds_secret_data = jsondecode(data.aws_secretsmanager_secret_version.master_rds_secret_version.secret_string)
 }
 
-/*
 resource "null_resource" "grant_iam_auth" {
   depends_on = [aws_db_instance.demo_rds]
 
@@ -72,4 +75,3 @@ SQL
   EOT
   }
 }
-*/
