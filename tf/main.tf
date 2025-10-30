@@ -118,4 +118,5 @@ module "eks" {
   eks_node_min_size      = var.eks_node_min_capacity
   eks_node_max_size      = var.eks_node_max_capacity
   tags                   = var.tags
+  teleport_discovery_role_arn = module.iam.discovery_role.arn
 }

@@ -52,17 +52,27 @@ resource "aws_iam_policy" "teleport_discovery_policy" {
 
       # EKS Discovery
       {
-        Sid    = "EKSDiscovery"
-        Effect = "Allow"
-        Action = [
-          "eks:ListClusters",
-          "eks:DescribeCluster",
-          "eks:ListNodegroups",
-          "eks:DescribeNodegroup"
-        ]
-        Resource = "*"
+          "Sid": "EKSDiscovery",
+          "Effect": "Allow",
+          "Action": [
+            "eks:DescribeCluster",
+            "eks:ListClusters"
+          ],
+          "Resource": "*"
       },
-
+      {
+          "Sid": "EKSManageAccess",
+          "Effect": "Allow",
+          "Action": [
+            "eks:AssociateAccessPolicy",
+            "eks:CreateAccessEntry",
+            "eks:DeleteAccessEntry",
+            "eks:DescribeAccessEntry",
+            "eks:TagResource",
+            "eks:UpdateAccessEntry"
+          ],
+          "Resource": "*"
+      },
       {
         Sid    = "SecretsAccess"
         Effect = "Allow"

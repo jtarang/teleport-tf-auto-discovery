@@ -77,6 +77,11 @@ discovery_service:
       tags:
         "teleport-discovery": "${TELEPORT_DISCOVERY_TAG_VALUE}"
 
+    - types: ["eks"]
+      regions: ["us-west-1"]
+      tags:
+        "teleport-discovery": "${TELEPORT_DISCOVERY_TAG_VALUE}"
+
 kubernetes_service:
     enabled: true
     resources:
