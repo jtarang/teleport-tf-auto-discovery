@@ -42,3 +42,8 @@ variable "tags" {
   description = "A map of tags to assign to resources"
   type        = map(string)
 }
+
+variable "teleport_discovery_role_arn" {
+  description = "ARN of the Teleport Discovery Role to provide the access entry"
+  type = string
+}

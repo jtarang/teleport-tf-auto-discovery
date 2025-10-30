@@ -97,3 +97,25 @@ resource "aws_eks_node_group" "eks_node_group" {
   depends_on = [aws_eks_cluster.eks_cluster]
 
 }
+
+# Create an Access Entry for the Teleport IAM Role
+resource "aws_eks_access_entry" "teleport_discovery_access_entry" {
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  principal_arn = var.teleport_discovery_role_arn
+  type          = "STANDARD"
+  
+  depends_on = [aws_eks_cluster.eks_cluster]
+}
+
+# Associate the Cluster Admin Access Policy
+resource "aws_eks_access_policy_association" "teleport_discovery_access_policy" {
+  cluster_name  = aws_eks_cluster.eks_cluster.name
+  principal_arn = var.teleport_discovery_role_arn
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+
+  depends_on = [aws_eks_access_entry.teleport_discovery_access_entry]
+}
