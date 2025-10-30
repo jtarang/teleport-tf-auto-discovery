@@ -69,7 +69,7 @@ db_service:
 
 discovery_service:
     enabled: true
-    discovery_group: "jasmit-test-discovery-group"
+    discovery_group: "aws-$REGION-discovery-group"
     poll_interval: 5m
     aws:
     - types: ["rds"]
